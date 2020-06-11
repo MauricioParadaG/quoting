@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderComponent from './components/Header.component';
 import styled from '@emotion/styled';
+import FormQuotingComponent from './components/FormQuoting.component';
 
 const AppContainer = styled.div`
   max-width: 600px;
@@ -8,7 +9,7 @@ const AppContainer = styled.div`
 `; 
 
 const FormContainer = styled.div`
-  background-color: FFF;
+  background-color: #FFF;
   padding: 3rem;
 `; 
 
@@ -19,6 +20,7 @@ function App() {
         title='Property Insurance / Quoting'
       />      
       <FormContainer>
+        <FormQuotingComponent/>
       </FormContainer>
 
     </AppContainer>
