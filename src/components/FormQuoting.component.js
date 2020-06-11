@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react';
 import styled from '@emotion/styled';
 
 const DivFild = styled.div`
@@ -45,11 +45,39 @@ const ButtonForm = styled.button`
 
 
 const FormQuotingComponent = () => {
+
+    const [formData, setFormDataState] = useState(
+        {
+           id:'',
+           type :'',
+           year:'',
+           city:'',
+           rooms:'',
+           qmeters:'',
+           price:'',
+           rented:''
+        }
+      );
+
+    const onChangeForm = event => {
+        setFormDataState({
+            ...formData,
+            // adding an ID - uuid library
+            //id: uuid(),
+            // adding the form info to the state
+            [event.target.name]: event.target.value
+        });
+    }   
+
     return (
         <form >
             <DivFild>
                 <LabelTitle>Property Type</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="type"
+                    value={formData.type}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="apartment">Apartment</option>
                     <option value="house">House</option>
@@ -60,7 +88,11 @@ const FormQuotingComponent = () => {
 
             <DivFild>
                 <LabelTitle>Property year</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="year"
+                    value={formData.year}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="2021">2021</option>
                     <option value="2020">2020</option>
@@ -129,7 +161,11 @@ const FormQuotingComponent = () => {
 
             <DivFild>
                 <LabelTitle>City</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="city"
+                    value={formData.city}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="barranquilla">Barranquilla</option>
                     <option value="bogota">Bogota</option>
@@ -139,7 +175,11 @@ const FormQuotingComponent = () => {
 
             <DivFild>
                 <LabelTitle>Number or Rooms</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="rooms"
+                    value={formData.rooms}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="one">1</option>
                     <option value="two">2</option>
@@ -158,7 +198,11 @@ const FormQuotingComponent = () => {
 
             <DivFild>
                 <LabelTitle>Quadratmete m²</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="qmeters"
+                    value={formData.qmeters}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="small">1 - 45</option>
                     <option value="medium">46 - 130</option>
@@ -171,7 +215,11 @@ const FormQuotingComponent = () => {
 
             <DivFild>
                 <LabelTitle>Renting Price / Dollar</LabelTitle>
-                <SelectDropdown>
+                <SelectDropdown
+                    name="price"
+                    value={formData.price}
+                    onChange={onChangeForm}
+                >
                     <option value="">- Select -</option>
                     <option value="scheap">100 - 200</option>
                     <option value="cheap">201 - 500</option>
@@ -186,12 +234,16 @@ const FormQuotingComponent = () => {
                 <LabelTitle>Is the property rented?</LabelTitle>
                 <InputRadio type="radio"
                 name="rented"
-                value="Yes"
+                value="yes"
+                checked={formData.rented === "yes"}
+                onChange={onChangeForm}
                 /> Yes
 
                 <InputRadio type="radio"
                 name="rented"
-                value="No"
+                value="no"
+                checked={formData.rented === "no"}
+                onChange={onChangeForm}
                 /> No
             </DivFild>
 
