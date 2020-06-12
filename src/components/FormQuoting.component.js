@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
+import {checkYearDifference, checkCity} from '../helper';
 
 const DivFild = styled.div`
     display: flex;
@@ -42,6 +43,14 @@ const ButtonForm = styled.button`
     }
 `; 
 
+const Error = styled.p`
+   background-color: red;
+   color: white;
+   padding: 1rem;
+   width: 100%;
+   text-align: center;
+   margin-bottom: 1rem;
+`; 
 
 
 const FormQuotingComponent = () => {
@@ -59,6 +68,8 @@ const FormQuotingComponent = () => {
         }
       );
 
+    const [error, setErrorState] = useState(false);
+
     const onChangeForm = event => {
         setFormDataState({
             ...formData,
@@ -67,10 +78,56 @@ const FormQuotingComponent = () => {
             // adding the form info to the state
             [event.target.name]: event.target.value
         });
-    }   
+    }  
+    
+    const onSubmit = event => {
+        event.preventDefault();
+        // validation
+        if (formData.type.trim() ==='' || 
+        formData.year.trim() ==='' ||
+        formData.city.trim() ==='' ||
+        formData.rooms.trim() ==='' ||
+        formData.qmeters.trim() ==='' ||
+        formData.price.trim() ==='' ||
+        formData.rented.trim() ===''
+        ){
+
+            setErrorState(true);
+            return;
+        }
+        setErrorState(false);
+    
+    // Money base $2.000
+    //1. If formData.year is older, every year 0.1%
+    //2. If formData.city is berlin its is - 2%, Bogota 15%, Bquilla 18%
+    //3. if formData.rooms is more, its cheaper. for every room it is a 5% cheaper. 
+    //4. if formData.qmeters are more, is cheaper. 5% cheaper
+    //5. If formData.rented, if yes 8% if not 20%
+        let quotingPrice = 2000;
+        // 1. checkYearDifference
+        const oldYear = checkYearDifference(formData.year);
+        
+        quotingPrice += ((oldYear * 0.1) * quotingPrice) / 100;
+        
+        // 2. checkCity
+        const cityPorcent = checkCity(formData.city);
+        quotingPrice += ( (quotingPrice * cityPorcent ) / 100 )
+        // quotingPrice = checkCity(formData.city) * quotingPrice;
+
+        console.log(quotingPrice);
+    }
+
+
+
 
     return (
-        <form >
+        <form onSubmit={onSubmit}>
+            {/** if - error message with stylized*/}
+            {error ?
+            <Error >All filds are required </Error>
+            : null
+            }
+
             <DivFild>
                 <LabelTitle>Property Type</LabelTitle>
                 <SelectDropdown
@@ -248,7 +305,7 @@ const FormQuotingComponent = () => {
             </DivFild>
 
             {/** Button */}
-            <ButtonForm type="button"
+            <ButtonForm type="submit"
                 className="a">
                 Quote
             </ButtonForm>                 
