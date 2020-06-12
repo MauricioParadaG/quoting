@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
-import {checkYearDifference, checkCity} from '../helper';
+import {checkYearDifference, checkCity, checkRooms, checkqMeters, checkRented} from '../helper';
 
 const DivFild = styled.div`
     display: flex;
@@ -100,8 +100,8 @@ const FormQuotingComponent = () => {
     // Money base $2.000
     //1. If formData.year is older, every year 0.1%
     //2. If formData.city is berlin its is - 2%, Bogota 15%, Bquilla 18%
-    //3. if formData.rooms is more, its cheaper. for every room it is a 5% cheaper. 
-    //4. if formData.qmeters are more, is cheaper. 5% cheaper
+    //3. if formData.rooms is more, its cheaper. for every room it is a 3% cheaper. 
+    //4. if formData.qmeters are more, is cheaper. 2% cheaper
     //5. If formData.rented, if yes 8% if not 20%
         let quotingPrice = 2000;
         // 1. checkYearDifference
@@ -112,7 +112,18 @@ const FormQuotingComponent = () => {
         // 2. checkCity
         const cityPorcent = checkCity(formData.city);
         quotingPrice += ( (quotingPrice * cityPorcent ) / 100 )
-        // quotingPrice = checkCity(formData.city) * quotingPrice;
+ 
+        // 3. checkRooms
+        const numberOfRooms = checkRooms(formData.rooms);
+        quotingPrice -= ( (numberOfRooms * 3) * quotingPrice) / 100;
+
+        // 4. checkqMeters
+        const numberOfqMeters = checkqMeters(formData.qmeters);
+        quotingPrice -= ( (numberOfqMeters * 2) * quotingPrice) / 100;
+
+        // 5. checkRented
+        const isRented = checkRented(formData.rented);
+        quotingPrice = parseFloat(isRented * quotingPrice).toFixed(2);
 
         console.log(quotingPrice);
     }
@@ -238,18 +249,18 @@ const FormQuotingComponent = () => {
                     onChange={onChangeForm}
                 >
                     <option value="">- Select -</option>
-                    <option value="one">1</option>
-                    <option value="two">2</option>
-                    <option value="tree">3</option>
-                    <option value="four">4</option>
-                    <option value="five">5</option>
-                    <option value="six">6</option>
-                    <option value="seven">7</option>
-                    <option value="eight">8</option>
-                    <option value="nine">9</option>
-                    <option value="teen">10</option>
-                    <option value="eleven">11</option>
-                    <option value="twelve">12</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
                 </SelectDropdown>
             </DivFild>
 
