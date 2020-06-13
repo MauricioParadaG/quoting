@@ -53,11 +53,25 @@ const Error = styled.p`
 `; 
 
 
-const FormQuotingComponent = () => {
+
+
+
+
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+
+
+
+
+
+
+const FormQuotingComponent = props => {
 
     const [formData, setFormDataState] = useState(
         {
-           id:'',
+           //id:'',
            type :'',
            year:'',
            city:'',
@@ -125,7 +139,14 @@ const FormQuotingComponent = () => {
         const isRented = checkRented(formData.rented);
         quotingPrice = parseFloat(isRented * quotingPrice).toFixed(2);
 
-        console.log(quotingPrice);
+        //console.log(quotingPrice);
+        // save to App.js state
+        props.setFormQuoteSummaryState({
+            quote: quotingPrice,
+            formData
+        });
+        
+
     }
 
 
