@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import HeaderComponent from './components/Header.component';
 import styled from '@emotion/styled';
 import FormQuotingComponent from './components/FormQuoting.component';
 import SummaryComponent from './components/Summary.component';
 import ResultComponent from './components/Result.component';
+import SpinnerComponent from './components/Spinner.component';
+
 
 const AppContainer = styled.div`
   max-width: 600px;
@@ -33,6 +35,8 @@ function App() {
     }
   });
 
+  const [loadingSpinner, setLoadingSpinnerState] = useState(false);
+
   const {formData} = formQuoteSummary;
 
   return (
@@ -43,15 +47,22 @@ function App() {
       <FormContainer>
         <FormQuotingComponent
           setFormQuoteSummaryState={setFormQuoteSummaryState}
+          setLoadingSpinnerState={setLoadingSpinnerState}
         />
+
+        {loadingSpinner ? <SpinnerComponent/> : null}   
 
         <SummaryComponent
           formDataState={formData}
         />
-      </FormContainer>
-      
-      <ResultComponent/>
 
+        <ResultComponent
+          quoteInAppState={formQuoteSummary.quote}
+        />
+      </FormContainer>
+
+      
+      
     </AppContainer>
   );
 }

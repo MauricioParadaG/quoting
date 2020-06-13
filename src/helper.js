@@ -32,15 +32,15 @@ export function checkRooms (rooms)  {
 export function checkqMeters (qMeters)  {
     let valueForQMeters;
 
-    if (qMeters === 'small'){
+    if (qMeters === '1 - 45'){
         valueForQMeters = 1;
-    } else if (qMeters === 'medium'){
+    } else if (qMeters === '46 - 130'){
         valueForQMeters = 2;
-    } else if (qMeters === 'large'){
+    } else if (qMeters === '131 - 250'){
         valueForQMeters = 3;
-    } else if (qMeters === 'xlarge'){
+    } else if (qMeters === '251 - 500'){
         valueForQMeters = 4;
-    } else if (qMeters === 'xxlarge'){
+    } else if (qMeters === '501 - 1000'){
         valueForQMeters = 5;
     }
 
@@ -51,7 +51,10 @@ export function checkRented (rented)  {
     return (rented === 'yes') ? 1.08 : 1.20;
 }
 
-
+// First letter in Caps
+export function firstCaps (textGoingCaps)  {
+    return textGoingCaps.charAt(0).toUpperCase() + textGoingCaps.slice(1);
+}
 
 
 

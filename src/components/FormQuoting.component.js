@@ -140,11 +140,20 @@ const FormQuotingComponent = props => {
         quotingPrice = parseFloat(isRented * quotingPrice).toFixed(2);
 
         //console.log(quotingPrice);
-        // save to App.js state
-        props.setFormQuoteSummaryState({
-            quote: quotingPrice,
-            formData
-        });
+        props.setLoadingSpinnerState(true);
+
+        setTimeout(() => {
+            props.setLoadingSpinnerState(false);
+            
+            // save to App.js state
+            props.setFormQuoteSummaryState({
+                quote: Number(quotingPrice),
+                formData
+            });
+
+        }, 2000);
+
+
         
 
     }
@@ -293,11 +302,11 @@ const FormQuotingComponent = props => {
                     onChange={onChangeForm}
                 >
                     <option value="">- Select -</option>
-                    <option value="small">1 - 45</option>
-                    <option value="medium">46 - 130</option>
-                    <option value="large">131 - 250</option>
-                    <option value="xlarge">251 - 500</option>
-                    <option value="xxlarge">501 - 1000</option>
+                    <option value="1 - 45">1 - 45</option>
+                    <option value="46 - 130">46 - 130</option>
+                    <option value="131 - 250">131 - 250</option>
+                    <option value="251 - 500">251 - 500</option>
+                    <option value="501 - 1000">501 - 1000</option>
                 </SelectDropdown>
             </DivFild>
 
@@ -310,12 +319,12 @@ const FormQuotingComponent = props => {
                     onChange={onChangeForm}
                 >
                     <option value="">- Select -</option>
-                    <option value="scheap">100 - 200</option>
-                    <option value="cheap">201 - 500</option>
-                    <option value="normal">501 - 800</option>
-                    <option value="expensive">801 - 1200</option>
-                    <option value="sexpensive">1201 - 1500</option>
-                    <option value="notnormal">1500 - More</option>
+                    <option value="100 - 200">100 - 200</option>
+                    <option value="201 - 500">201 - 500</option>
+                    <option value="501 - 800">501 - 800</option>
+                    <option value="801 - 1200">801 - 1200</option>
+                    <option value="1201 - 1500">1201 - 1500</option>
+                    <option value="1500 - More">1500 - More</option>
                 </SelectDropdown>
             </DivFild>
 
